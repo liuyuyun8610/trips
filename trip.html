@@ -322,6 +322,67 @@
   }
 
   /* ===== Carousel (drag-drop upload + slideshow) ===== */
+  /* ===== Highlights (重要訂單摘要) ===== */
+  .highlights {
+    padding: 24px 24px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .highlights h2 {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin: 0 0 12px;
+  }
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .highlight-card {
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.1s;
+  }
+  .highlight-card:hover {
+    border-color: var(--red);
+    transform: translateY(-1px);
+  }
+  .highlight-card .highlight-emoji {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .highlight-card .highlight-title {
+    font-family: "Noto Serif TC", serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 4px;
+    line-height: 1.4;
+  }
+  .highlight-card .highlight-meta {
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+  .highlight-card .highlight-day {
+    display: inline-block;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 10px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
   .memories {
     padding: 32px 24px;
     background: var(--paper-warm);
@@ -848,9 +909,11 @@ async function render() {
     // 旅行完成後輪播放在最上方；還在進行則放在最下面（接近 footer）
     const completed = !!currentTrip.is_completed;
     const memoriesHtml = renderMemories(currentPhotos, completed);
+    const highlightsHtml = renderHighlights(currentSections, currentBlocksMap);
 
     const html = `
       ${renderHero(currentTrip, completed)}
+      ${highlightsHtml}
       ${completed ? memoriesHtml : ''}
       ${currentSections.map(s => renderSection(s)).join('')}
       ${editMode ? `<div style="padding:0 24px;"><button class="add-section-btn" id="addSectionBtn">+ 新增段落（如：Day 4、附錄）</button></div>` : ''}
@@ -902,6 +965,55 @@ function renderHero(trip, completed) {
             <button class="btn btn-outline" id="toggleCompletedBtn">${completed ? '↺ 重新進行' : '✓ 旅行完成'}</button>
           </div>
         ` : ''}
+      </div>
+    </section>
+  `;
+}
+
+// ===== Highlights: 集中顯示已訂的重要項目 (機票 / 接送 / 飯店…)
+//   挑選規則：title 開頭是 ✈️ / 🚕 / 🏨，或 tags 含「已出票」「已訂」「已訂車」
+//   點卡片 → 跳到對應的 block (anchor scroll)
+function renderHighlights(sections, blocksMap) {
+  const HIGHLIGHT_TAGS = ['已出票', '已訂', '已訂車', '已付款'];
+  const HIGHLIGHT_EMOJIS = ['✈️', '🚕', '🏨', '🎫', '🎟️'];
+  const items = [];
+  sections.forEach(s => {
+    const blocks = blocksMap[s.id] || [];
+    blocks.forEach(b => {
+      const titleStartsWithEmoji = HIGHLIGHT_EMOJIS.some(e => (b.title || '').startsWith(e));
+      const hasTag = (b.tags || []).some(t => HIGHLIGHT_TAGS.includes(t));
+      if (!titleStartsWithEmoji && !hasTag) return;
+      // 從 title 抽出第一個 emoji（如有）
+      const emojiMatch = (b.title || '').match(/^(\p{Extended_Pictographic}️?)/u);
+      const emoji = emojiMatch ? emojiMatch[1] : '';
+      const cleanTitle = (b.title || '').replace(/^(\p{Extended_Pictographic}️?)\s*/u, '');
+      // 從 body 抽出前 3 行（去掉 markdown 標號）
+      const lines = (b.body || '').split('\n').slice(0, 3)
+        .map(l => l.replace(/\*\*/g, '').trim())
+        .filter(Boolean);
+      items.push({
+        id: b.id,
+        sectionTitle: s.title,
+        sectionNumber: s.number,
+        emoji,
+        title: cleanTitle,
+        meta: lines.join('\n'),
+      });
+    });
+  });
+  if (items.length === 0) return '';
+  return `
+    <section class="highlights">
+      <h2>重要訂單 · Bookings</h2>
+      <div class="highlights-grid">
+        ${items.map(it => `
+          <a class="highlight-card" href="#block-${it.id}">
+            ${it.emoji ? `<div class="highlight-emoji">${it.emoji}</div>` : ''}
+            <div class="highlight-day">${escapeHtml(it.sectionNumber || it.sectionTitle)}</div>
+            <div class="highlight-title">${escapeHtml(it.title)}</div>
+            <div class="highlight-meta">${escapeHtml(it.meta)}</div>
+          </a>
+        `).join('')}
       </div>
     </section>
   `;
@@ -1077,7 +1189,7 @@ function renderBlock(block, sectionId) {
     : '';
 
   return `
-    <li class="block">
+    <li class="block" id="block-${block.id}">
       <div class="block-time">${escapeHtml(block.time || '')}</div>
       <div class="block-card">
         ${editMode ? `

@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F2EADC">
+<title>旅行詳情 · Family Trips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ===== Back link ===== */
+  .back-link {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 90;
+    background: rgba(255,255,255,0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px 6px 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s;
+  }
+
+  .back-link:hover { background: var(--ink); color: var(--paper); }
+
+  /* ===== Hero ===== */
+  .hero {
+    padding: 80px 24px 40px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero.has-cover {
+    padding: 0;
+    border-bottom: none;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center;
+    color: var(--paper);
+  }
+
+  .hero.has-cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(28,23,20,0.2) 0%, rgba(28,23,20,0.7) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .hero.has-cover .hero-content {
+    padding: 24px;
+  }
+
+  .hero .kicker {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--red-bright);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+
+  .hero h1 {
+    font-family: "Noto Serif TC", serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--red-bright);
+    display: block;
+    font-size: 26px;
+    margin-top: 4px;
+  }
+
+  .hero.has-cover h1 em { color: var(--paper-dark); }
+
+  .hero .meta {
+    font-family: "Fraunces", serif;
+    font-size: 16px;
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    color: var(--ink-soft);
+  }
+
+  .hero.has-cover .meta { color: var(--paper-dark); }
+
+  .hero .meta .sep { opacity: 0.5; }
+
+  .hero .description {
+    margin-top: 16px;
+    font-size: 15px;
+    max-width: 640px;
+    line-height: 1.65;
+  }
+
+  .family-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .family-tags span {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    opacity: 0.8;
+  }
+
+  /* ===== Section ===== */
+  .section {
+    padding: 48px 24px 32px;
+    border-bottom: 1px dashed var(--line);
+    position: relative;
+  }
+
+  .section-head {
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .section-num {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+
+  .section-num::before { content: "— "; }
+
+  .section-title {
+    font-family: "Noto Serif TC", serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 4px;
+  }
+
+  .section-sub {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .section-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 6px;
+  }
+
+  /* ===== Timeline / blocks ===== */
+  .timeline { padding: 0; margin: 0; list-style: none; }
+
+  .block {
+    position: relative;
+    padding: 0 0 28px 0;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
+  }
+
+  .block:last-child { padding-bottom: 0; }
+
+  .block::before {
+    content: "";
+    position: absolute;
+    left: 25px;
+    top: 22px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--line), transparent);
+  }
+
+  .block:last-child::before { display: none; }
+
+  .block-time {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--red);
+    text-align: right;
+    padding-top: 2px;
+    position: relative;
+    white-space: pre-line;
+  }
+
+  .block-time::after {
+    content: "";
+    position: absolute;
+    right: -13px;
+    top: 7px;
+    width: 9px;
+    height: 9px;
+    background: var(--paper);
+    border: 2px solid var(--red);
+    border-radius: 50%;
+    z-index: 2;
+  }
+
+  .block-card {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 14px 16px;
+    position: relative;
+  }
+
+  .block-card h3 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    line-height: 1.3;
+    padding-right: 60px;
+  }
+
+  .block-card p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  .block-card p:last-child { margin-bottom: 0; }
+
+  .block-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: 0.06em;
+    background: rgba(159,51,41,0.08);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .block-tip {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(159,51,41,0.06);
+    border-left: 2px solid var(--red);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    white-space: pre-wrap;
+  }
+
+  .block-tip strong {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--red);
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .block-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+  }
+
+  .block-actions .btn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  /* ===== Photos Gallery ===== */
+  .photos-section { padding: 48px 24px; }
+  .photos-section h2 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .photos-section .photo-sub {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0 0 24px;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .photo-tile {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--paper-warm);
+    cursor: pointer;
+  }
+
+  .photo-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .photo-tile:hover img { transform: scale(1.04); }
+
+  .photo-tile-actions {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .edit-mode .photo-tile-actions { opacity: 1; }
+  .photo-tile:hover .photo-tile-actions { opacity: 1; }
+
+  .photo-tile-actions .btn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    background: rgba(255,255,255,0.95);
+  }
+
+  .upload-tile {
+    aspect-ratio: 1;
+    border: 2px dashed var(--line);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--ink-muted);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .upload-tile:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(159, 51, 41, 0.03);
+  }
+
+  .upload-tile .plus { font-size: 28px; line-height: 1; margin-bottom: 4px; font-weight: 300; }
+
+  /* Photo viewer */
+  .photo-viewer {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .photo-viewer.show { display: flex; }
+
+  .photo-viewer img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+
+  .photo-viewer-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Add buttons */
+  .add-section-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: 2px dashed var(--line);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ink-muted);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 24px;
+  }
+
+  .add-section-btn:hover { border-color: var(--red); color: var(--red); }
+
+  .add-block-btn {
+    display: block;
+    width: calc(100% - 64px - 14px);
+    margin-left: calc(64px + 14px);
+    padding: 10px;
+    border: 2px dashed var(--line);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--ink-muted);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+
+  .add-block-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* Footer */
+  footer {
+    padding: 48px 24px 80px;
+    text-align: center;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+
+  footer .ornament {
+    font-size: 18px;
+    color: var(--red);
+    margin-bottom: 10px;
+    letter-spacing: 0.5em;
+  }
+
+  /* Desktop */
+  @media (min-width: 680px) {
+    .hero { padding: 96px 56px 56px; }
+    .hero.has-cover { min-height: 480px; padding: 0; }
+    .hero.has-cover .hero-content { padding: 56px; }
+    .hero h1 { font-size: 56px; }
+    .hero h1 em { font-size: 36px; }
+    .section, .photos-section { padding: 64px 56px; }
+    .photo-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a href="index.html" class="back-link" id="backLink">← 所有旅行</a>
+
+<div id="content">
+  <div class="loader">載入中…</div>
+</div>
+
+</div>
+
+<!-- ===== Trip Edit Modal ===== -->
+<div class="modal-overlay" id="tripModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h2>編輯旅行</h2>
+    <p class="modal-sub">基本資訊</p>
+    <form id="tripForm">
+      <div class="field">
+        <label class="field-label">旅行名稱</label>
+        <input type="text" class="input" id="tTitle" required>
+      </div>
+      <div class="field">
+        <label class="field-label">副標題</label>
+        <input type="text" class="input" id="tSubtitle">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="field">
+          <label class="field-label">出發日</label>
+          <input type="date" class="input" id="tStart" required>
+        </div>
+        <div class="field">
+          <label class="field-label">回程日</label>
+          <input type="date" class="input" id="tEnd" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">地點</label>
+        <input type="text" class="input" id="tLocation" required>
+      </div>
+      <div class="field">
+        <label class="field-label">同行家人（逗號分隔）</label>
+        <input type="text" class="input" id="tFamily">
+      </div>
+      <div class="field">
+        <label class="field-label">描述</label>
+        <textarea class="textarea" id="tDescription"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>取消</button>
+        <button type="submit" class="btn btn-red">儲存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== Section Modal ===== -->
+<div class="modal-overlay" id="sectionModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h2 id="sModalTitle">新增段落</h2>
+    <p class="modal-sub">每個段落代表一天行程或一個主題</p>
+    <form id="sectionForm">
+      <input type="hidden" id="sId">
+      <div class="field">
+        <label class="field-label">段落編號／日期（例：Day 01 · 5.15 Friday）</label>
+        <input type="text" class="input" id="sNumber" placeholder="Day 01 · 5.15 Friday">
+      </div>
+      <div class="field">
+        <label class="field-label">標題</label>
+        <input type="text" class="input" id="sTitle" placeholder="例：抵達日 · 飯店周邊輕鬆遊" required>
+      </div>
+      <div class="field">
+        <label class="field-label">副標題（英文 slogan）</label>
+        <input type="text" class="input" id="sSubtitle" placeholder="例：Easy does it">
+      </div>
+      <div class="field">
+        <label class="field-label">標籤（逗號分隔）</label>
+        <input type="text" class="input" id="sMeta" placeholder="例：輕鬆路線, 步行可達">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>取消</button>
+        <button type="submit" class="btn btn-red">儲存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== Block Modal ===== -->
+<div class="modal-overlay" id="blockModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h2 id="bModalTitle">新增行程項目</h2>
+    <p class="modal-sub">時間軸上的一個點</p>
+    <form id="blockForm">
+      <input type="hidden" id="bId">
+      <input type="hidden" id="bSectionId">
+      <div style="display:grid;grid-template-columns:140px 1fr;gap:12px;">
+        <div class="field">
+          <label class="field-label">時間</label>
+          <input type="text" class="input" id="bTime" placeholder="例：09:00">
+        </div>
+        <div class="field">
+          <label class="field-label">標題</label>
+          <input type="text" class="input" id="bTitle" placeholder="例：景福宮" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">內容</label>
+        <textarea class="textarea" id="bBody" placeholder="行程描述、地點、注意事項…" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label class="field-label">標籤（逗號分隔，選填）</label>
+        <input type="text" class="input" id="bTags" placeholder="例：必看儀式, 免費表演">
+      </div>
+      <div class="field">
+        <label class="field-label">小提示／Tip（選填）</label>
+        <textarea class="textarea" id="bTip" placeholder="額外注意事項、訣竅…" rows="3"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>取消</button>
+        <button type="submit" class="btn btn-red">儲存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== Photo Viewer ===== -->
+<div class="photo-viewer" id="photoViewer">
+  <button class="photo-viewer-close" id="photoViewerClose">×</button>
+  <img id="photoViewerImg" src="" alt="">
+</div>
+
+<!-- ===== Hidden file input for photo upload ===== -->
+<input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+
+<script type="module">
+import {
+  getTrip, updateTrip,
+  listSections, createSection, updateSection, deleteSection,
+  listBlocks, createBlock, updateBlock, deleteBlock,
+  listPhotos, uploadPhoto, deletePhoto, setTripCover,
+  isEditMode, toast,
+} from './db.js';
+
+const editMode = isEditMode();
+if (editMode) document.body.classList.add('edit-mode');
+
+// Get trip ID from URL
+const params = new URLSearchParams(window.location.search);
+const tripId = params.get('id');
+
+if (!tripId) {
+  document.getElementById('content').innerHTML = `
+    <div class="empty-state">
+      <h3>找不到旅行</h3>
+      <p>網址少了 ?id=xxx 參數</p>
+      <a class="btn btn-outline" href="index.html">返回首頁</a>
+    </div>
+  `;
+}
+
+// Update back link to preserve edit mode
+if (editMode) {
+  document.getElementById('backLink').href = 'index.html?edit';
+}
+
+// State
+let currentTrip = null;
+let currentSections = [];
+let currentBlocksMap = {}; // { sectionId: blocks[] }
+let currentPhotos = [];
+
+function escapeHtml(s) {
+  if (!s && s !== 0) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function fmtDateRange(start, end) {
+  const s = new Date(start);
+  const e = new Date(end);
+  const opts = { month: 'short', day: 'numeric' };
+  return `${s.toLocaleDateString('en-US', opts)} → ${e.toLocaleDateString('en-US', opts)}, ${e.getFullYear()}`;
+}
+
+// ===== Render =====
+async function render() {
+  if (!tripId) return;
+
+  try {
+    currentTrip = await getTrip(tripId);
+    currentSections = await listSections(tripId);
+    currentPhotos = await listPhotos(tripId);
+
+    // Load blocks for each section
+    currentBlocksMap = {};
+    for (const s of currentSections) {
+      currentBlocksMap[s.id] = await listBlocks(s.id);
+    }
+
+    document.title = `${currentTrip.title} · Family Trips`;
+
+    const html = `
+      ${renderHero(currentTrip)}
+      ${currentSections.map(s => renderSection(s)).join('')}
+      ${editMode ? `<div style="padding:0 24px;"><button class="add-section-btn" id="addSectionBtn">+ 新增段落（如：Day 4、附錄）</button></div>` : ''}
+      ${renderPhotos(currentPhotos)}
+      <footer>
+        <div class="ornament">· · ·</div>
+        <p>${escapeHtml(currentTrip.title)}</p>
+        <p style="font-size:11px;margin-top:4px;">${fmtDateRange(currentTrip.start_date, currentTrip.end_date)}</p>
+      </footer>
+    `;
+    document.getElementById('content').innerHTML = html;
+    bindEvents();
+  } catch (err) {
+    document.getElementById('content').innerHTML = `
+      <div class="empty-state">
+        <h3>載入失敗</h3>
+        <p>${escapeHtml(err.message)}</p>
+        <a class="btn btn-outline" href="index.html">返回首頁</a>
+      </div>
+    `;
+  }
+}
+
+function renderHero(trip) {
+  const cover = trip.cover_url ? `style="background-image:url('${trip.cover_url}')"` : '';
+  const className = trip.cover_url ? 'hero has-cover' : 'hero';
+  const dates = fmtDateRange(trip.start_date, trip.end_date);
+  const family = trip.family && trip.family.length
+    ? `<div class="family-tags">${trip.family.map(f => `<span>${escapeHtml(f)}</span>`).join('')}</div>`
+    : '';
+
+  return `
+    <section class="${className}" ${cover}>
+      <div class="hero-content">
+        <p class="kicker">Family Trip</p>
+        <h1>${escapeHtml(trip.title)}${trip.subtitle ? `<em>${escapeHtml(trip.subtitle)}</em>` : ''}</h1>
+        <div class="meta">
+          <span>${dates}</span>
+          <span class="sep">·</span>
+          <span>${escapeHtml(trip.location)}</span>
+        </div>
+        ${trip.description ? `<p class="description">${escapeHtml(trip.description)}</p>` : ''}
+        ${family}
+        ${editMode ? `
+          <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-outline" id="editTripBtn">✎ 編輯資訊</button>
+          </div>
+        ` : ''}
+      </div>
+    </section>
+  `;
+}
+
+function renderSection(section) {
+  const blocks = currentBlocksMap[section.id] || [];
+  const meta = section.meta && section.meta.length
+    ? `<div style="margin-top:16px;font-size:12px;color:var(--ink-muted);display:flex;gap:14px;flex-wrap:wrap;">${section.meta.map(m => `<span>◦ ${escapeHtml(m)}</span>`).join('')}</div>`
+    : '';
+
+  const blockHtml = blocks.map(b => renderBlock(b, section.id)).join('');
+
+  return `
+    <section class="section">
+      <div class="section-head">
+        ${section.number ? `<p class="section-num">${escapeHtml(section.number)}</p>` : ''}
+        <h2 class="section-title">${escapeHtml(section.title)}</h2>
+        ${section.subtitle ? `<p class="section-sub">${escapeHtml(section.subtitle)}</p>` : ''}
+        ${meta}
+        ${editMode ? `
+          <div class="section-actions">
+            <button class="btn-icon" data-edit-section="${section.id}" title="編輯段落">✎</button>
+            <button class="btn-icon btn-danger" data-delete-section="${section.id}" title="刪除段落">✕</button>
+          </div>
+        ` : ''}
+      </div>
+      <ul class="timeline">
+        ${blockHtml}
+      </ul>
+      ${editMode ? `<button class="add-block-btn" data-add-block="${section.id}">+ 新增行程項目</button>` : ''}
+    </section>
+  `;
+}
+
+function renderBlock(block, sectionId) {
+  const tags = block.tags && block.tags.length
+    ? `<div class="block-tags">${block.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>`
+    : '';
+
+  const tip = block.tip
+    ? `<div class="block-tip"><strong>Tip</strong>${escapeHtml(block.tip)}</div>`
+    : '';
+
+  return `
+    <li class="block">
+      <div class="block-time">${escapeHtml(block.time || '')}</div>
+      <div class="block-card">
+        ${editMode ? `
+          <div class="block-actions">
+            <button class="btn-icon" data-edit-block="${block.id}" data-section="${sectionId}" title="編輯">✎</button>
+            <button class="btn-icon btn-danger" data-delete-block="${block.id}" title="刪除">✕</button>
+          </div>
+        ` : ''}
+        <h3>${escapeHtml(block.title)}</h3>
+        ${block.body ? `<p>${escapeHtml(block.body)}</p>` : ''}
+        ${tags}
+        ${tip}
+      </div>
+    </li>
+  `;
+}
+
+function renderPhotos(photos) {
+  const tiles = photos.map(p => `
+    <div class="photo-tile">
+      <img src="${p.url}" alt="${escapeHtml(p.caption || '')}" data-photo-url="${p.url}" loading="lazy">
+      ${editMode ? `
+        <div class="photo-tile-actions">
+          <button class="btn-icon" data-set-cover="${p.url}" title="設為封面">★</button>
+          <button class="btn-icon btn-danger" data-delete-photo="${p.id}" data-path="${p.path}" title="刪除">✕</button>
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+
+  const upload = editMode
+    ? `<div class="upload-tile" id="uploadTile">
+         <div class="plus">+</div>
+         <div>上傳照片</div>
+       </div>`
+    : '';
+
+  if (photos.length === 0 && !editMode) return '';
+
+  return `
+    <section class="photos-section">
+      <h2>相片回憶</h2>
+      <p class="photo-sub">${photos.length === 0 ? '還沒有照片' : `${photos.length} 張照片`}</p>
+      <div class="photo-grid">
+        ${tiles}
+        ${upload}
+      </div>
+    </section>
+  `;
+}
+
+// ===== Event binding =====
+function bindEvents() {
+  // Edit trip
+  document.getElementById('editTripBtn')?.addEventListener('click', () => openTripModal());
+
+  // Add section
+  document.getElementById('addSectionBtn')?.addEventListener('click', () => openSectionModal());
+
+  // Edit/delete section
+  document.querySelectorAll('[data-edit-section]').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.editSection;
+      const section = currentSections.find(s => s.id === id);
+      if (section) openSectionModal(section);
+    });
+  });
+
+  document.querySelectorAll('[data-delete-section]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const id = b.dataset.deleteSection;
+      const section = currentSections.find(s => s.id === id);
+      if (!confirm(`確定要刪除「${section?.title}」？裡面所有行程項目都會一起刪除。`)) return;
+      try {
+        await deleteSection(id);
+        toast('已刪除');
+        render();
+      } catch (err) {
+        toast('刪除失敗：' + err.message, 'error');
+      }
+    });
+  });
+
+  // Add block
+  document.querySelectorAll('[data-add-block]').forEach(b => {
+    b.addEventListener('click', () => {
+      const sectionId = b.dataset.addBlock;
+      openBlockModal(null, sectionId);
+    });
+  });
+
+  // Edit/delete block
+  document.querySelectorAll('[data-edit-block]').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.editBlock;
+      const sectionId = b.dataset.section;
+      const block = currentBlocksMap[sectionId]?.find(x => x.id === id);
+      if (block) openBlockModal(block, sectionId);
+    });
+  });
+
+  document.querySelectorAll('[data-delete-block]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const id = b.dataset.deleteBlock;
+      if (!confirm('確定要刪除這個行程項目？')) return;
+      try {
+        await deleteBlock(id);
+        toast('已刪除');
+        render();
+      } catch (err) {
+        toast('刪除失敗：' + err.message, 'error');
+      }
+    });
+  });
+
+  // Photo upload
+  document.getElementById('uploadTile')?.addEventListener('click', () => {
+    document.getElementById('photoInput').click();
+  });
+
+  // Set cover
+  document.querySelectorAll('[data-set-cover]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const url = b.dataset.setCover;
+      try {
+        await setTripCover(tripId, url);
+        toast('已設為封面');
+        render();
+      } catch (err) {
+        toast('設定失敗：' + err.message, 'error');
+      }
+    });
+  });
+
+  // Delete photo
+  document.querySelectorAll('[data-delete-photo]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const id = b.dataset.deletePhoto;
+      const path = b.dataset.path;
+      if (!confirm('確定要刪除這張照片？')) return;
+      try {
+        await deletePhoto(id, path);
+        toast('已刪除');
+        render();
+      } catch (err) {
+        toast('刪除失敗：' + err.message, 'error');
+      }
+    });
+  });
+
+  // View photo
+  document.querySelectorAll('[data-photo-url]').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('photoViewerImg').src = img.dataset.photoUrl;
+      document.getElementById('photoViewer').classList.add('show');
+    });
+  });
+}
+
+// ===== Modal handlers =====
+function setupModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.querySelectorAll('[data-close-modal]').forEach(el => {
+    el.addEventListener('click', () => modal.classList.remove('show'));
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.classList.remove('show');
+  });
+}
+setupModal('tripModal');
+setupModal('sectionModal');
+setupModal('blockModal');
+
+// Trip modal
+function openTripModal() {
+  const t = currentTrip;
+  document.getElementById('tTitle').value = t.title || '';
+  document.getElementById('tSubtitle').value = t.subtitle || '';
+  document.getElementById('tStart').value = t.start_date || '';
+  document.getElementById('tEnd').value = t.end_date || '';
+  document.getElementById('tLocation').value = t.location || '';
+  document.getElementById('tFamily').value = t.family ? t.family.join(', ') : '';
+  document.getElementById('tDescription').value = t.description || '';
+  document.getElementById('tripModal').classList.add('show');
+}
+
+document.getElementById('tripForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const fam = document.getElementById('tFamily').value.trim();
+  try {
+    await updateTrip(tripId, {
+      title: document.getElementById('tTitle').value.trim(),
+      subtitle: document.getElementById('tSubtitle').value.trim() || null,
+      start_date: document.getElementById('tStart').value,
+      end_date: document.getElementById('tEnd').value,
+      location: document.getElementById('tLocation').value.trim(),
+      family: fam ? fam.split(',').map(s => s.trim()).filter(Boolean) : [],
+      description: document.getElementById('tDescription').value.trim() || null,
+    });
+    toast('已儲存');
+    document.getElementById('tripModal').classList.remove('show');
+    render();
+  } catch (err) {
+    toast('儲存失敗：' + err.message, 'error');
+  }
+});
+
+// Section modal
+function openSectionModal(section = null) {
+  document.getElementById('sModalTitle').textContent = section ? '編輯段落' : '新增段落';
+  document.getElementById('sId').value = section?.id || '';
+  document.getElementById('sNumber').value = section?.number || '';
+  document.getElementById('sTitle').value = section?.title || '';
+  document.getElementById('sSubtitle').value = section?.subtitle || '';
+  document.getElementById('sMeta').value = section?.meta ? section.meta.join(', ') : '';
+  document.getElementById('sectionModal').classList.add('show');
+}
+
+document.getElementById('sectionForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('sId').value;
+  const meta = document.getElementById('sMeta').value.trim();
+  const payload = {
+    number: document.getElementById('sNumber').value.trim() || null,
+    title: document.getElementById('sTitle').value.trim(),
+    subtitle: document.getElementById('sSubtitle').value.trim() || null,
+    meta: meta ? meta.split(',').map(s => s.trim()).filter(Boolean) : [],
+  };
+  try {
+    if (id) {
+      await updateSection(id, payload);
+    } else {
+      payload.trip_id = tripId;
+      payload.order_index = currentSections.length;
+      await createSection(payload);
+    }
+    toast('已儲存');
+    document.getElementById('sectionModal').classList.remove('show');
+    render();
+  } catch (err) {
+    toast('儲存失敗：' + err.message, 'error');
+  }
+});
+
+// Block modal
+function openBlockModal(block = null, sectionId) {
+  document.getElementById('bModalTitle').textContent = block ? '編輯行程項目' : '新增行程項目';
+  document.getElementById('bId').value = block?.id || '';
+  document.getElementById('bSectionId').value = sectionId;
+  document.getElementById('bTime').value = block?.time || '';
+  document.getElementById('bTitle').value = block?.title || '';
+  document.getElementById('bBody').value = block?.body || '';
+  document.getElementById('bTags').value = block?.tags ? block.tags.join(', ') : '';
+  document.getElementById('bTip').value = block?.tip || '';
+  document.getElementById('blockModal').classList.add('show');
+}
+
+document.getElementById('blockForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('bId').value;
+  const sectionId = document.getElementById('bSectionId').value;
+  const tags = document.getElementById('bTags').value.trim();
+  const payload = {
+    time: document.getElementById('bTime').value.trim() || null,
+    title: document.getElementById('bTitle').value.trim(),
+    body: document.getElementById('bBody').value.trim() || null,
+    tags: tags ? tags.split(',').map(s => s.trim()).filter(Boolean) : [],
+    tip: document.getElementById('bTip').value.trim() || null,
+  };
+  try {
+    if (id) {
+      await updateBlock(id, payload);
+    } else {
+      payload.section_id = sectionId;
+      const blocks = currentBlocksMap[sectionId] || [];
+      payload.order_index = blocks.length;
+      await createBlock(payload);
+    }
+    toast('已儲存');
+    document.getElementById('blockModal').classList.remove('show');
+    render();
+  } catch (err) {
+    toast('儲存失敗：' + err.message, 'error');
+  }
+});
+
+// Photo upload
+document.getElementById('photoInput').addEventListener('change', async e => {
+  const files = Array.from(e.target.files);
+  if (files.length === 0) return;
+
+  toast(`上傳 ${files.length} 張照片中…`);
+  let success = 0, failed = 0;
+  for (const file of files) {
+    try {
+      await uploadPhoto(tripId, file);
+      success++;
+    } catch (err) {
+      console.error(err);
+      failed++;
+    }
+  }
+  if (failed === 0) {
+    toast(`已上傳 ${success} 張照片`);
+  } else {
+    toast(`成功 ${success}, 失敗 ${failed}`, 'error');
+  }
+  e.target.value = '';
+  render();
+});
+
+// Photo viewer
+document.getElementById('photoViewerClose').addEventListener('click', () => {
+  document.getElementById('photoViewer').classList.remove('show');
+});
+document.getElementById('photoViewer').addEventListener('click', e => {
+  if (e.target.id === 'photoViewer') {
+    document.getElementById('photoViewer').classList.remove('show');
+  }
+});
+
+// Edit mode bar
+if (editMode) {
+  const bar = document.createElement('div');
+  bar.className = 'edit-bar';
+  const exitUrl = `${window.location.pathname}?id=${tripId}`;
+  bar.innerHTML = `
+    <span class="dot"></span>
+    <span>編輯模式</span>
+    <a href="${exitUrl}">退出</a>
+  `;
+  document.body.appendChild(bar);
+}
+
+if (tripId) render();
+</script>
+
+</body>
+</html>

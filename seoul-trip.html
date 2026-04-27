@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F2EADC">
+<title>首爾家族旅行 · Seoul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EADC;
+    --paper-warm:#EADFCB;
+    --paper-dark:#D9C9A8;
+    --ink:#1C1714;
+    --ink-soft:#4E3E33;
+    --ink-muted:#7A6A5C;
+    --red:#9F3329;
+    --red-bright:#C83D30;
+    --navy:#2B4766;
+    --gold:#A6823C;
+    --line:rgba(28,23,20,0.14);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC","Helvetica Neue",sans-serif;
+    font-size:15px;
+    line-height:1.7;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(159,51,41,0.04), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(43,71,102,0.04), transparent 50%);
+  }
+  /* subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:1;
+    mix-blend-mode:multiply;
+    opacity:0.6;
+  }
+  .wrap{position:relative;z-index:2;}
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:72px 24px 56px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .kicker{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:13px;
+    letter-spacing:0.12em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin:0 0 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero .kicker::before{
+    content:"";
+    width:28px;
+    height:1px;
+    background:var(--red);
+    display:inline-block;
+  }
+  .hero h1{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:44px;
+    line-height:1.12;
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--red);
+    display:block;
+    font-size:34px;
+    margin-top:6px;
+    letter-spacing:0;
+  }
+  .hero .dates{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:18px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    margin:28px 0 20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .hero .dates .sep{color:var(--ink-muted);font-style:italic;}
+  .family{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:24px;
+  }
+  .family span{
+    font-size:12px;
+    letter-spacing:0.05em;
+    padding:5px 12px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background:rgba(255,255,255,0.3);
+    color:var(--ink-soft);
+  }
+  .seal{
+    position:absolute;
+    top:32px;
+    right:24px;
+    width:74px;
+    height:74px;
+    border:2px solid var(--red);
+    color:var(--red);
+    transform:rotate(6deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:16px;
+    line-height:1.1;
+    text-align:center;
+    letter-spacing:0.1em;
+    background:rgba(242,234,220,0.4);
+  }
+  .seal::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border:1px solid var(--red);
+    opacity:0.45;
+  }
+
+  /* ============ HOTEL STRIP ============ */
+  .hotel{
+    padding:24px;
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .hotel .label{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:12px;
+    letter-spacing:0.15em;
+    color:var(--paper-dark);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  .hotel h2{
+    font-family:"Noto Serif TC",serif;
+    font-size:20px;
+    font-weight:500;
+    margin:0 0 4px;
+    line-height:1.3;
+  }
+  .hotel h2 em{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:300;
+    color:var(--paper-dark);
+    display:block;
+    font-size:14px;
+    margin-top:2px;
+  }
+  .hotel .addr{
+    font-size:13px;
+    color:var(--paper-dark);
+    margin:14px 0 16px;
+    line-height:1.5;
+  }
+  .hotel-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    padding-top:16px;
+    border-top:1px solid rgba(242,234,220,0.15);
+  }
+  .hotel-points div{
+    font-size:12px;
+    line-height:1.5;
+  }
+  .hotel-points strong{
+    display:block;
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--red-bright);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:2px;
+  }
+
+  /* ============ NAV ============ */
+  nav.days{
+    position:sticky;
+    top:0;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    z-index:100;
+    padding:14px 20px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    white-space:nowrap;
+    scrollbar-width:none;
+  }
+  nav.days::-webkit-scrollbar{display:none;}
+  nav.days a{
+    display:inline-block;
+    padding:6px 14px;
+    margin-right:6px;
+    font-family:"Fraunces",serif;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-soft);
+    text-decoration:none;
+    border:1px solid transparent;
+    border-radius:999px;
+    transition:all 0.2s;
+  }
+  nav.days a:hover{
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  nav.days a em{
+    font-style:italic;
+    color:var(--red);
+    margin-right:4px;
+  }
+
+  /* ============ DAY SECTION ============ */
+  .day{
+    padding:56px 24px 40px;
+    border-bottom:1px dashed var(--line);
+    scroll-margin-top:64px;
+  }
+  .day-head{
+    margin-bottom:36px;
+    position:relative;
+  }
+  .day-num{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:14px;
+    letter-spacing:0.15em;
+    color:var(--red);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  .day-num::before{
+    content:"— ";
+    margin-right:4px;
+  }
+  .day-title{
+    font-family:"Noto Serif TC",serif;
+    font-size:32px;
+    font-weight:600;
+    line-height:1.2;
+    margin:0 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .day-sub{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:18px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .day-meta{
+    margin-top:16px;
+    font-size:12px;
+    letter-spacing:0.05em;
+    color:var(--ink-muted);
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .day-meta span::before{
+    content:"◦ ";
+    color:var(--red);
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline{
+    position:relative;
+    padding-left:0;
+    margin:0;
+    list-style:none;
+  }
+  .block{
+    position:relative;
+    padding:0 0 32px 0;
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:16px;
+  }
+  .block:last-child{padding-bottom:0;}
+  .block::before{
+    content:"";
+    position:absolute;
+    left:25px;
+    top:22px;
+    bottom:0;
+    width:1px;
+    background:linear-gradient(to bottom, var(--line), transparent);
+  }
+  .block:last-child::before{display:none;}
+  .time{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:14px;
+    color:var(--red);
+    text-align:right;
+    padding-top:2px;
+    letter-spacing:0.02em;
+    position:relative;
+  }
+  .time::after{
+    content:"";
+    position:absolute;
+    right:-13px;
+    top:7px;
+    width:9px;
+    height:9px;
+    background:var(--paper);
+    border:2px solid var(--red);
+    border-radius:50%;
+    z-index:2;
+  }
+  .card{
+    background:rgba(255,255,255,0.45);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:16px 18px;
+    position:relative;
+  }
+  .card h3{
+    font-family:"Noto Serif TC",serif;
+    font-size:17px;
+    font-weight:600;
+    margin:0 0 6px;
+    line-height:1.3;
+    letter-spacing:-0.005em;
+  }
+  .card h3 .ko{
+    font-family:"Noto Serif KR",serif;
+    font-weight:400;
+    color:var(--ink-muted);
+    font-size:13px;
+    margin-left:6px;
+    letter-spacing:0;
+  }
+  .card p{
+    margin:0 0 8px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.65;
+  }
+  .card p:last-child{margin-bottom:0;}
+  .tag{
+    display:inline-block;
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:0.08em;
+    background:rgba(159,51,41,0.08);
+    padding:2px 8px;
+    border-radius:2px;
+    margin-right:4px;
+    margin-bottom:4px;
+  }
+  .tag.navy{color:var(--navy);background:rgba(43,71,102,0.08);}
+  .tag.gold{color:var(--gold);background:rgba(166,130,60,0.1);}
+  .tip{
+    margin-top:10px;
+    padding:10px 12px;
+    background:rgba(159,51,41,0.06);
+    border-left:2px solid var(--red);
+    font-size:12.5px;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .tip strong{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--red);
+    letter-spacing:0.05em;
+    font-size:11px;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:2px;
+  }
+  .food{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    font-size:13px;
+  }
+  .food strong{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+
+  /* ============ OPTION ============ */
+  .option{
+    background:var(--paper-warm);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:16px 18px;
+    margin-bottom:12px;
+  }
+  .option .opt-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .option .opt-num{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--red);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  .option h4{
+    font-family:"Noto Serif TC",serif;
+    font-size:16px;
+    font-weight:600;
+    margin:0;
+  }
+  .option p{font-size:13.5px;margin:4px 0 0;color:var(--ink-soft);}
+
+  /* ============ REFERENCE SECTIONS ============ */
+  .ref{
+    padding:56px 24px;
+    border-bottom:1px dashed var(--line);
+  }
+  .ref.dark{
+    background:var(--ink);
+    color:var(--paper);
+    border-bottom:none;
+  }
+  .ref-head{margin-bottom:28px;}
+  .ref-kicker{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin:0 0 8px;
+  }
+  .ref.dark .ref-kicker{color:var(--red-bright);}
+  .ref h2{
+    font-family:"Noto Serif TC",serif;
+    font-size:28px;
+    font-weight:600;
+    margin:0;
+    line-height:1.2;
+  }
+
+  /* Korean phrases */
+  .phrases{display:flex;flex-direction:column;gap:14px;}
+  .phrase{
+    padding:14px 0;
+    border-bottom:1px solid rgba(242,234,220,0.15);
+  }
+  .phrase:last-child{border-bottom:none;}
+  .phrase .ko{
+    font-family:"Noto Serif KR",serif;
+    font-size:20px;
+    font-weight:400;
+    margin:0 0 2px;
+    color:var(--paper);
+  }
+  .phrase .romanize{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--paper-dark);
+    margin:0 0 2px;
+    letter-spacing:0.03em;
+  }
+  .phrase .zh{
+    font-size:13px;
+    color:var(--paper-dark);
+    margin:0;
+  }
+
+  /* Transport */
+  .transport{display:grid;gap:16px;}
+  .transport-card{
+    background:rgba(255,255,255,0.4);
+    border:1px solid var(--line);
+    padding:16px 18px;
+    border-radius:3px;
+  }
+  .transport-card h3{
+    font-family:"Noto Serif TC",serif;
+    font-size:16px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .transport-card h3 em{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:300;
+    color:var(--ink-muted);
+    font-size:13px;
+    margin-left:6px;
+  }
+  .transport-card .route{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:8px 0 0;
+  }
+  .transport-card .route span.arrow{color:var(--red);margin:0 4px;}
+  .transport-card .meta{
+    margin-top:8px;
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:12px;
+    color:var(--ink-muted);
+    letter-spacing:0.05em;
+  }
+
+  /* Tips */
+  .tips-grid{display:grid;gap:14px;}
+  .tip-box{
+    padding:16px 18px;
+    background:rgba(255,255,255,0.4);
+    border:1px solid var(--line);
+    border-radius:3px;
+  }
+  .tip-box h3{
+    font-family:"Noto Serif TC",serif;
+    font-size:15px;
+    font-weight:600;
+    margin:0 0 8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tip-box h3::before{
+    content:"";
+    width:6px;
+    height:6px;
+    background:var(--red);
+    border-radius:50%;
+    display:inline-block;
+  }
+  .tip-box ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.7;
+  }
+  .tip-box ul li{margin-bottom:4px;}
+  .tip-box ul li:last-child{margin-bottom:0;}
+
+  /* Weather */
+  .weather{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:20px 18px;
+    background:rgba(255,255,255,0.4);
+    border:1px solid var(--line);
+    border-radius:3px;
+    margin-bottom:20px;
+  }
+  .weather .temp{
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:44px;
+    line-height:1;
+    color:var(--red);
+  }
+  .weather .wdesc{font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  .weather .wdesc strong{
+    display:block;
+    font-family:"Noto Serif TC",serif;
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+
+  /* Footer */
+  footer{
+    padding:48px 24px 60px;
+    text-align:center;
+    font-family:"Fraunces",serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-muted);
+    letter-spacing:0.05em;
+  }
+  footer .ornament{
+    font-size:20px;
+    color:var(--red);
+    margin-bottom:12px;
+    letter-spacing:0.5em;
+  }
+
+  /* Subtle hover on cards */
+  @media (hover:hover){
+    .card:hover, .option:hover, .transport-card:hover{
+      background:rgba(255,255,255,0.7);
+    }
+  }
+
+  /* Desktop tweaks */
+  @media (min-width:680px){
+    .hero{padding:96px 56px 72px;}
+    .hero h1{font-size:60px;}
+    .hero h1 em{font-size:46px;}
+    .seal{top:48px;right:56px;width:90px;height:90px;font-size:18px;}
+    .hotel{padding:32px 56px;}
+    nav.days{padding:14px 40px;}
+    .day, .ref{padding:72px 56px;}
+    .hotel-points{grid-template-columns:repeat(4,1fr);}
+    .tips-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="seal">家族<br>旅行</div>
+  <p class="kicker">Family Trip · 首爾 Seoul</p>
+  <h1>首爾<br>家族旅行<em>Seoul in Spring</em></h1>
+  <p class="dates">
+    <span>2026.05.15 FRI</span>
+    <span class="sep">→</span>
+    <span>05.18 MON</span>
+    <span class="sep">·</span>
+    <span>3 nights</span>
+  </p>
+  <div class="family">
+    <span>我</span>
+    <span>媽媽</span>
+    <span>姊姊</span>
+    <span>外甥女</span>
+    <span>外甥</span>
+  </div>
+  <p style="margin-top:20px;font-family:'Fraunces',serif;font-style:italic;font-size:12px;color:var(--ink-muted);letter-spacing:0.05em;">5 人行 · 全程計程車 · ★ 3 家豬肉烤肉 + 聖水洞潮逛</p>
+</section>
+
+<!-- ================= HOTEL ================= -->
+<section class="hotel">
+  <p class="label">Our Stay · 住宿</p>
+  <h2>UH Suite 首爾中心飯店<em>UH Suite Central Seoul</em></h2>
+  <p class="addr">17-27, Mugyo-ro, 中區, 首爾<br>套房式公寓 · 多間浴室 · 位置極佳</p>
+  <div class="hotel-points">
+    <div><strong>明洞／樂天</strong>步行 5–10 分鐘<br>飯店、烤肉、購物</div>
+    <div><strong>景福宮</strong>計程車 10 分<br>約 ₩6,000–8,000</div>
+    <div><strong>廣藏市場</strong>計程車 10 分<br>約 ₩7,000–9,000</div>
+    <div><strong>聖水洞</strong>計程車 25 分<br>約 ₩12,000–18,000</div>
+  </div>
+</section>
+
+<!-- ================= NAV ================= -->
+<nav class="days">
+  <a href="#day1"><em>Day 1</em>抵達日</a>
+  <a href="#day2"><em>Day 2</em>景福宮+廣藏</a>
+  <a href="#day3"><em>Day 3</em>聖水洞</a>
+  <a href="#day4"><em>Day 4</em>返台</a>
+  <a href="#bbq" style="color:var(--red);"><em>★</em>烤肉朝聖</a>
+  <a href="#phrases"><em>附</em>韓語</a>
+  <a href="#transport"><em>附</em>交通</a>
+  <a href="#tips"><em>附</em>貼士</a>
+</nav>
+
+<!-- ================= DAY 1 ================= -->
+<section class="day" id="day1">
+  <div class="day-head">
+    <p class="day-num">Day 01 · 5.15 Friday</p>
+    <h2 class="day-title">抵達日 · 飯店周邊輕鬆遊</h2>
+    <p class="day-sub">Hotel → BBQ → CU → Lotte Department</p>
+    <div class="day-meta">
+      <span>輕鬆路線</span>
+      <span>步行可達</span>
+      <span>不用搬車</span>
+    </div>
+  </div>
+
+  <ul class="timeline">
+    <li class="block">
+      <div class="time">14:00—<br>17:00</div>
+      <div class="card">
+        <h3>抵達機場 → 飯店<span class="ko">호텔</span></h3>
+        <p>下午時段入境，5 人加行李建議直接<b>預訂包車／大型計程車</b>到飯店。</p>
+        <span class="tag">5 人包車</span>
+        <div class="tip">
+          <strong>費用估算</strong>
+          <b>仁川 ICN → 飯店</b>：包車 NT$1,600–2,200／車（55–70 分）<br>
+          <b>金浦 GMP → 飯店</b>：包車 NT$800–1,200／車（25 分）
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">17:30</div>
+      <div class="card">
+        <h3>入住 UH Suite 中心飯店</h3>
+        <p>放行李、稍作休息。公寓式套房空間寬敞，讓媽媽和小孩可以先躺一下。</p>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">19:00</div>
+      <div class="card">
+        <h3>晚餐 · 烤肉巡禮 #1<span class="ko">팔색삼겹살</span></h3>
+        <p>走路到明洞 10 分鐘。<b>八色烤肉 明洞店</b>—— 8 種口味的三層肉一次上桌（人蔘／紅酒／松葉／大蒜／咖哩／味噌／辣椒／原味），第一晚開場最適合，變化多、小孩可以只吃不辣的。</p>
+        <span class="tag">★烤肉 1/3</span>
+        <span class="tag navy">8 種口味</span>
+        <span class="tag gold">步行可到</span>
+        <div class="tip">
+          <strong>點餐訣竅</strong>
+          5 人建議點 2 份 8 色套餐（適合 6 人份），加點泡菜鍋、蛋蒸、白飯、最後加炒飯。小朋友不能吃辣的話店員會幫忙分烤盤。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">21:00</div>
+      <div class="card">
+        <h3>便利商店巡禮 · CU／GS25／7-11<span class="ko">편의점</span></h3>
+        <p>韓國便利商店是另一種觀光！飯後走進去逛超有樂趣。小朋友最愛、媽媽姊姊也會被燒到。</p>
+        <span class="tag">必逛體驗</span>
+        <span class="tag navy">小孩最愛</span>
+        <div class="food">
+          <strong>必試清單</strong>
+          <p style="margin-bottom:4px;">· <b>白色奶油麵包</b>（CU 連榮）／<b>蘋果牛奶</b>（瓶身像蘋果）</p>
+          <p style="margin-bottom:4px;">· <b>香蕉牛奶</b>／<b>玉米鬚茶</b>／<b>燒酒沙瓦</b>系列</p>
+          <p style="margin-bottom:4px;">· <b>蜂蜜奶油洋芋片</b>／<b>巧克力糖葫蘆</b>／<b>松鼠造型布丁</b></p>
+          <p style="margin-bottom:0;">· <b>關東煮</b>（自助式，小孩可以吃魚板暖暖胃）</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">21:30</div>
+      <div class="card">
+        <h3>樂天百貨／免稅店<span class="ko">롯데백화점</span></h3>
+        <p>飯店對面就是樂天百貨本店 + 免稅店，一條地下通道直通。逛到打烊（百貨 22:30、免稅店多到 21:30）。</p>
+        <span class="tag">飯店對面</span>
+        <span class="tag navy">退稅好買</span>
+        <div class="tip">
+          <strong>逛街攻略</strong>
+          · <b>免稅店 9–11 樓</b>：化妝品、精品、菸酒（要帶護照）<br>
+          · <b>百貨 B1 食品館</b>：精緻甜點、糕餅、伴手禮<br>
+          · <b>Young Plaza</b>：年輕潮牌、文具<br>
+          · 媽媽姊姊可以慢慢挑，不買也沒壓力
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">22:30</div>
+      <div class="card">
+        <h3>回飯店休息</h3>
+        <p>樂天百貨走路 5 分鐘回飯店。早點睡明天才有精神。</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- ================= DAY 2 ================= -->
+<section class="day" id="day2">
+  <div class="day-head">
+    <p class="day-num">Day 02 · 5.16 Saturday</p>
+    <h2 class="day-title">景福宮 + 廣藏市場</h2>
+    <p class="day-sub">Palace → lunch → market hunt for grandma vests</p>
+    <div class="day-meta">
+      <span>景福宮 + 廣藏市場</span>
+      <span>晚上再討論</span>
+      <span>穿舒服鞋</span>
+    </div>
+  </div>
+
+  <ul class="timeline">
+    <li class="block">
+      <div class="time">09:30</div>
+      <div class="card">
+        <h3>計程車到景福宮<span class="ko">경복궁</span></h3>
+        <p>從飯店用 Kakao T 叫大型計程車到景福宮 4 號出口（韓服街），約 10–15 分鐘，<b>₩6,000–8,000</b>。</p>
+        <div class="tip">
+          <strong>Pro tip</strong>
+          景福宮站 4 號出口附近有多家韓服租賃店，穿韓服免門票（省 ₩3,000），媽媽姊姊小朋友都可以一起穿，建議租 4 小時方案，留時間慢慢拍。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">10:00</div>
+      <div class="card">
+        <h3>景福宮 · 守門將交接儀式</h3>
+        <p>朝鮮王朝最重要的正宮，600 多年歷史。10:00 的守門將交接儀式約 20 分鐘，記得提早 10 分鐘到興禮門前卡位。穿著韓服在勤政殿、慶會樓邊走邊拍。</p>
+        <span class="tag">必看儀式</span>
+        <span class="tag navy">免費表演</span>
+        <div class="tip">
+          <strong>儀式時刻表</strong>
+          守門將交接 · 10:00 / 14:00（20 分）<br>
+          光化門把守 · 11:00 / 13:00（10 分）<br>
+          週二休館（5/16 週六開放 ✓）
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">12:30</div>
+      <div class="card">
+        <h3>午餐 · 土俗村蔘雞湯<span class="ko">토속촌</span></h3>
+        <p>景福宮 2 號出口走 5 分鐘。朝鮮傳統韓屋，每人一隻完整蔘雞湯，暖胃補身、不辣，長輩小孩都能吃。排隊熱門但翻桌很快。</p>
+        <span class="tag gold">老字號</span>
+        <span class="tag">不辣</span>
+        <div class="food">
+          <strong>Alt</strong>
+          <p style="margin-bottom:0;">不想排隊：<b>三清洞</b>有很多韓式定食小館，走路 10 分鐘到。</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">14:30</div>
+      <div class="card">
+        <h3>計程車到廣藏市場<span class="ko">광장시장</span></h3>
+        <p>叫大型計程車到廣藏市場，約 15 分鐘，<b>₩8,000–10,000</b>。請司機停 <b>광장시장 북1문</b>（北 1 門）下車最方便。</p>
+        <span class="tag">百年市場</span>
+        <span class="tag navy">5,000 攤</span>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">15:00</div>
+      <div class="card">
+        <h3>廣藏市場 1 樓 · 美食巡禮</h3>
+        <p>剛吃完蔘雞湯不會太餓，正好慢慢吃小吃。1 樓是傳統小吃天堂，攤位坐下來點幾樣分著吃。</p>
+        <div class="food">
+          <strong>必試小吃</strong>
+          <p style="margin-bottom:4px;">· <b>麻藥飯捲</b>（小小一條，名字就叫麻藥）</p>
+          <p style="margin-bottom:4px;">· <b>順熙家綠豆煎餅</b>（米其林必比登）</p>
+          <p style="margin-bottom:4px;">· <b>韓奶奶刀削麵</b>／<b>大麥拌飯</b>（小孩友善）</p>
+          <p style="margin-bottom:0;">· <b>肉膾姊妹家</b> 生牛肉（敢嚐鮮再點）</p>
+        </div>
+        <div class="tip">
+          <strong>市場注意</strong>
+          位子有限要快動作。不接受大鈔，準備一些 ₩1,000／5,000 小鈔。生牛肉／活章魚對小孩可能太刺激，挑飯捲、煎餅、刀削麵就好。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">16:30</div>
+      <div class="card">
+        <h3>廣藏市場 2 樓 · 老奶奶背心朝聖<span class="ko">할머니 나시 / 구제시장</span></h3>
+        <p>找認明<b>「수입구제 輸入古著」</b>四個字的入口上 2 樓。這裡是首爾隱藏版的<b>古著天堂</b> + 韓國最近爆紅的<b>「奶奶款內搭背心」</b>聖地。</p>
+        <span class="tag">★ 重點目標</span>
+        <span class="tag navy">爆紅單品</span>
+        <div class="tip">
+          <strong>奶奶款背心 할머니 나시</strong>
+          就是阿嬤穿的那種白色／膚色內搭背心（BYC、쌍방울、TRY 牌）。Jennie、IU 都穿過後爆紅。<b>一件約 ₩3,000–8,000</b>，超便宜。市場各處的內衣店、寢具區、1 樓巷弄都能挖到。
+        </div>
+        <div class="tip">
+          <strong>2 樓古著區攻略</strong>
+          · 11:00 後才陸續開店，下午 1–6 點最熱<br>
+          · YSL／Burberry／Stussy／Levi's 等品牌古著<br>
+          · 殺價文化盛行，多買多便宜<br>
+          · 現金為王，刷卡價會比較硬
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">18:00</div>
+      <div class="card">
+        <h3>計程車回飯店休整</h3>
+        <p>叫車回飯店，約 10 分鐘，<b>₩7,000–9,000</b>。讓媽媽和小孩泡個熱水放鬆。</p>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">19:30</div>
+      <div class="card">
+        <h3>晚餐 · 烤肉巡禮 #2<span class="ko">왕비집</span></h3>
+        <p>走路 10 分鐘到明洞，<b>王妃家 明洞 2 號店</b>。<b>店員全程代烤</b>，跑一天不用動手。豬五花肉質軟嫩、油花漂亮，也有韓牛混搭。</p>
+        <span class="tag">★烤肉 2/3</span>
+        <span class="tag navy">店員代烤</span>
+        <span class="tag gold">步行可到</span>
+        <div class="tip">
+          <strong>「再討論」備案</strong>
+          如果今天逛太累不想跑，可以改：<br>
+          · <b>飯店附近吃</b>（樂天百貨美食街、明洞餃子）<br>
+          · <b>叫炸雞外送</b>（橋村、BHC、bb.q.）回飯店吃<br>
+          · <b>BHC 明洞店</b>外帶配啤酒在飯店看電視
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- ================= DAY 3 ================= -->
+<section class="day" id="day3">
+  <div class="day-head">
+    <p class="day-num">Day 03 · 5.17 Sunday</p>
+    <h2 class="day-title">聖水洞一日遊</h2>
+    <p class="day-sub">All day in Seongsu — Brooklyn of Seoul</p>
+    <div class="day-meta">
+      <span>潮流 + 咖啡</span>
+      <span>慢步調</span>
+      <span>米其林烤肉</span>
+    </div>
+  </div>
+
+  <div style="margin-bottom:24px;padding:16px;background:rgba(159,51,41,0.06);border:1px dashed var(--red);border-radius:3px;">
+    <p style="margin:0 0 8px;font-family:'Fraunces',serif;font-style:italic;color:var(--red);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">About Seongsu · 聖水洞</p>
+    <p style="margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.65;">舊工廠改造潮區，被稱為「<b>首爾的布魯克林</b>」。<b>工業風咖啡廳</b>、<b>韓系潮牌旗艦店</b>、<b>美妝體驗空間</b>、<b>快閃店</b>密集，街道平緩好走、長輩小孩都能跟。建議慢慢走、隨時找咖啡廳坐下。</p>
+  </div>
+
+  <ul class="timeline">
+    <li class="block">
+      <div class="time">10:00</div>
+      <div class="card">
+        <h3>計程車到聖水洞<span class="ko">성수동</span></h3>
+        <p>從飯店叫大型計程車到聖水洞，約 20–30 分鐘，<b>₩12,000–18,000</b>。請司機停 <b>聖水站 3 號出口</b>或 <b>Cafe Onion 성수</b> 附近。</p>
+        <div class="tip">
+          <strong>為什麼從這開始</strong>
+          聖水站 3 號出口出來就是主街演武場路，店家多、好定位。Cafe Onion 是聖水洞元老級地標，從這延伸往各個方向走都好逛。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">10:30</div>
+      <div class="card">
+        <h3>Cafe Onion 聖水店<span class="ko">어니언 성수</span></h3>
+        <p>1970 年代金屬工廠改建，聖水洞「廢墟風咖啡廳」始祖。紅磚水泥牆混搭現代設計，網美必拍。<b>雪山麵包 Pandoro</b>是招牌——尖尖的麵包灑滿糖粉像小雪山。</p>
+        <span class="tag">必訪地標</span>
+        <span class="tag navy">早餐 + 拍照</span>
+        <div class="tip">
+          <strong>避開排隊</strong>
+          11 點前到比較不會等。週末會排很久，建議今天（週日）一開門就到。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">11:30</div>
+      <div class="card">
+        <h3>LCDC Seoul · 複合式選物商場<span class="ko">엘씨디씨 서울</span></h3>
+        <p>清水模建築，3 層樓的設計師選物聚落。<b>3 樓最值得逛</b>——切分成像「房間」一樣的小店鋪，每扇門後一個獨立小品牌。媽媽姊姊會逛到失心瘋。</p>
+        <span class="tag">設計選物</span>
+        <span class="tag navy">3 樓必逛</span>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">13:00</div>
+      <div class="card">
+        <h3>午餐 · 祖傳三代馬鈴薯排骨湯<span class="ko">소문난성수감자탕</span></h3>
+        <p>白鐘元三大天王推薦，聖水洞最強美食。<b>馬鈴薯排骨湯 감자탕</b>湯頭濃郁、排骨燉到骨肉分離，配馬鈴薯、芝麻葉，最後加炒飯。<b>不能吃紫蘇葉的請繞路</b>（味道很重）。</p>
+        <span class="tag gold">米其林白叔推薦</span>
+        <span class="tag">不是烤肉日</span>
+        <div class="tip">
+          <strong>點餐攻略</strong>
+          阿珠媽看人數自動上鍋（3 人以下都給小份）。<b>5 人點中份「중」</b>剛好。最後不要急著加飯——湯沒了才能炒飯。
+        </div>
+        <div class="food">
+          <strong>Alt 不吃紫蘇葉</strong>
+          <p style="margin-bottom:0;">改吃 <b>Rue de Rivoli 聖水</b>（法式早午餐、玫瑰辣炒年糕）或 <b>Downtowner 聖水</b>（韓國名人愛店蝦堡）。</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">14:30</div>
+      <div class="card">
+        <h3>聖水洞品牌街 · 邊走邊逛</h3>
+        <p>沿著演武場路慢慢走，沿途都是韓國潮牌、美妝、設計師品牌的旗艦店和快閃店。<b>每週都有不同的快閃</b>。</p>
+        <span class="tag">★ 重點街區</span>
+        <span class="tag navy">每週新店</span>
+        <div class="tip">
+          <strong>必逛清單</strong>
+          · <b>AMORE 聖水</b>（愛茉莉旗艦，美妝體驗、媽媽姊姊最愛）<br>
+          · <b>MUSINSA 聖水</b>（韓國最大設計師潮牌平台）<br>
+          · <b>STAND OIL</b> 旗艦（純素皮革包包）<br>
+          · <b>POINT OF VIEW</b>（3 層樓文具選物）<br>
+          · <b>Fwee 旗艦</b>（爆紅唇頰膏／玻璃光氣墊）<br>
+          · <b>MLB 聖水</b>（帽牆超好拍 + 燙布貼 DIY）
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">16:00</div>
+      <div class="card">
+        <h3>下午茶 · Dior 聖水 + 萌系小店<span class="ko">디올 성수</span></h3>
+        <p><b>Dior 聖水概念店</b>外觀已是聖水洞地標，外牆免費拍照。內部要 App 預約。再走幾步是 <b>Dalim Bread</b>（爆紅小熊麵包，圓滾滾掛笑臉）讓小朋友開心一下。</p>
+        <span class="tag">必拍地標</span>
+        <span class="tag gold">小孩會喜歡</span>
+        <div class="food">
+          <strong>甜點選擇</strong>
+          <p style="margin-bottom:0;">· <b>NUDAKE 聖水</b>（Gentle Monster 甜點，暗黑藝術風）<br>· <b>BREADYPOST</b>（蝴蝶餅麵包）<br>· <b>自然島鹽麵包</b>（爆紅鹽可頌）<br>· <b>現代鯛魚燒</b>（小朋友最愛）</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">17:30</div>
+      <div class="card">
+        <h3>首爾林公園 散步<span class="ko">서울숲</span></h3>
+        <p>從聖水主街走 15 分鐘到首爾林。<b>韓國的紐約中央公園</b>，有梅花鹿、生態園、池塘。逛了一下午商店，剛好讓眼睛和腳休息。長輩可以坐下、小孩可以跑跳。</p>
+        <span class="tag">綠地</span>
+        <span class="tag navy">遛小孩</span>
+        <div class="tip">
+          <strong>Skip 也 OK</strong>
+          如果走累了不想走，這段可以省略，叫車去吃晚餐。或者 <b>Under Stand Avenue</b>（首爾林貨櫃屋市集）也很順路。
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">19:00</div>
+      <div class="card">
+        <h3>晚餐 · 烤肉巡禮 #3 終章<span class="ko">미쳤다</span></h3>
+        <p>聖水洞米其林推薦烤肉店 <b>KOKUMI 미쳤다</b> ── 蟬聯米其林多年，被稱為「燒肉界天花板」。<b>店員全程代烤</b>、自製鋁烤盤 + 備長炭。</p>
+        <span class="tag">★烤肉 3/3 終章</span>
+        <span class="tag navy">米其林推薦</span>
+        <span class="tag gold">店員代烤</span>
+        <div class="tip">
+          <strong>必點</strong>
+          · <b>豬梅花肉 KOKUMI 목살</b>（招牌，多汁鮮嫩）<br>
+          · <b>松露炸醬麵 생트러플 짜파게티</b>（店員現刨松露！）<br>
+          · <b>KOKUMI 쌀밥</b>（炊飯）<br>
+          · <b>五花肉 오겹살</b><br>
+          熱門店建議用 <b>Catch Table</b> App 訂位，或一抵達聖水先去現場登記候位。
+        </div>
+        <div class="food">
+          <strong>Alt 訂不到位</strong>
+          <p style="margin-bottom:0;">· <b>聖水站烤肉胡同</b>（巷子內多家烤肉店挑一家）<br>· <b>新沙牛烤腸 聖水分店</b>（牛烤腸鍋）</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">21:00</div>
+      <div class="card">
+        <h3>計程車回飯店</h3>
+        <p>叫車回飯店，約 20–25 分鐘，<b>₩12,000–18,000</b>。今天走很多但很值得，洗熱水澡早睡，明天回家！</p>
+      </div>
+    </li>
+  </ul>
+
+  <div style="margin-top:28px;">
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin:0 0 12px;">Plan B · 下雨備案</p>
+    <div class="option">
+      <div class="opt-head">
+        <span class="opt-num">Tip</span>
+        <h4>聖水下雨也好玩</h4>
+      </div>
+      <p>聖水洞大部分店家是<b>室內空間</b>，咖啡廳、選物店、商場都不怕雨。LCDC、AMORE、Cafe Onion 室內都很大。下雨可以多在 <b>LCDC Seoul</b> 慢慢逛，或在 Cafe Onion 待久一點。只有首爾林公園可以跳過。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DAY 4 ================= -->
+<section class="day" id="day4">
+  <div class="day-head">
+    <p class="day-num">Day 04 · 5.18 Monday</p>
+    <h2 class="day-title">開心返台</h2>
+    <p class="day-sub">A relaxed morning, then home we go</p>
+    <div class="day-meta">
+      <span>視飛機時間彈性</span>
+      <span>飯店寄行李</span>
+    </div>
+  </div>
+
+  <ul class="timeline">
+    <li class="block">
+      <div class="time">早上</div>
+      <div class="card">
+        <h3>悠閒早餐</h3>
+        <p>慢慢起床，飯店附近隨便吃。推薦 <b>飯店附近的咖啡廳</b>、<b>明洞餃子</b>（米其林必比登刀削麵）、或飯店周邊便利商店買點麵包牛奶在房裡吃。最後一天不趕。</p>
+        <span class="tag">輕鬆</span>
+        <span class="tag navy">不用早起</span>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">11:00</div>
+      <div class="card">
+        <h3>退房 · 寄存行李</h3>
+        <p>11:00 前退房，飯店可免費寄放行李到下午。如果飛機是晚班，可以再做最後採買（樂天百貨／免稅店就在對面，伴手禮一站搞定）。</p>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">起飛前<br>3 小時</div>
+      <div class="card">
+        <h3>計程車 → 機場</h3>
+        <p>5 人加行李一車塞不下，建議<b>提前預約機場接送／包車</b>（出發前在 KKday／Klook 訂）。現場叫大型計程車也可，但機場尖峰不保證能叫到。</p>
+        <span class="tag">預約包車</span>
+        <span class="tag navy">5 人行李</span>
+        <div class="tip">
+          <strong>費用估算</strong>
+          <b>飯店 → 仁川機場</b>：包車 NT$1,600–2,200／車（55–70 分）<br>
+          <b>飯店 → 金浦機場</b>：包車 NT$800–1,200／車（25–30 分）
+        </div>
+      </div>
+    </li>
+
+    <li class="block">
+      <div class="time">機場</div>
+      <div class="card">
+        <h3>退稅 · 報到 · 開心返台 ✈️</h3>
+        <p>機場辦理退稅需要護照 + 退稅單據，預留 30–45 分鐘。<b>單筆消費 ₩15,000 以上</b>都可以退。記得收好所有單據！</p>
+        <div class="tip">
+          <strong>退稅小幫手</strong>
+          · 樂天免稅店買的會直接退稅／不用辦<br>
+          · 一般店家結帳時要說「Tax Free」並出示護照<br>
+          · 紙本退稅單到機場 KIOSK 或退稅櫃台辦理<br>
+          · 高額商品要過海關蓋章後才能退
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- ================= BBQ GUIDE ================= -->
+<section class="ref" id="bbq">
+  <div class="ref-head">
+    <p class="ref-kicker">Pork Pilgrimage · 烤肉朝聖</p>
+    <h2>三家豬肉 · 三種風格</h2>
+  </div>
+
+  <div style="margin-bottom:28px;padding:16px 18px;background:rgba(159,51,41,0.06);border:1px dashed var(--red);border-radius:3px;">
+    <p style="margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.65;">3 個晚上 = <b>3 家豬肉烤肉</b>，遞進式安排：<b>多口味嚐鮮 → 代烤輕鬆 → 米其林壓軸</b>。每家都在當天行程的順路位置。</p>
+  </div>
+
+  <div class="transport">
+    <div class="transport-card">
+      <h3>#1 八色烤肉 <em>팔색삼겹살</em></h3>
+      <p class="route">Day 1 晚餐 · 明洞 · 步行 10 分</p>
+      <p class="meta">8 種口味三層肉：原味／紅酒／人蔘／大蒜／松葉／咖哩／味噌／辣椒。<b>多變化、小孩友善</b>，不辣口味多，第一晚開場。<br>· 人均 ₩20,000–28,000</p>
+    </div>
+    <div class="transport-card">
+      <h3>#2 王妃家 <em>왕비집</em></h3>
+      <p class="route">Day 2 晚餐 · 明洞 · 步行 10 分</p>
+      <p class="meta">招牌豬五花 + 韓牛混搭。<b>店員全程代烤</b>，逛了一天市場手不用動，長輩小孩最適合。<br>· 人均 ₩30,000–45,000（韓牛貴）</p>
+    </div>
+    <div class="transport-card">
+      <h3>#3 KOKUMI <em>미쳤다</em></h3>
+      <p class="route">Day 3 晚餐 · 聖水洞 · 計程車 25 分</p>
+      <p class="meta">米其林推薦多年的<b>燒肉界天花板</b>。豬梅花肉 + 松露炸醬麵是招牌，店員代烤。建議 Catch Table 訂位。<br>· 人均 ₩35,000–50,000</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:32px 0 14px;color:var(--ink);">豬肉部位小抄</h3>
+  <div class="phrases" style="background:transparent;">
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">삼겹살 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">sam-gyeop-sal</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>三層肉／五花肉</b>．最經典最萬用，肥瘦三層，烤到外酥內嫩</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">오겹살 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">o-gyeop-sal</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>五層肉</b>．帶皮版本，多一層脆皮口感，濟州黑豬肉常用</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">목살 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">mok-sal</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>豬頸肉／梅花肉</b>．油脂少一點、肉感紮實，怕油膩選這個</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">항정살 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">hang-jeong-sal</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>松板肉／豬臉頰</b>．一隻豬只有少量，油花最漂亮、軟嫩滑</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">갈매기살 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">gal-maegi-sal</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>豬橫膈膜</b>．行家點菜、肉味濃郁有嚼勁，配燒酒一流</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">돼지갈비 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">dwaeji-galbi</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>豬排骨</b>．醬汁醃過帶甜味，小朋友會喜歡</p>
+    </div>
+    <div class="phrase" style="border-color:var(--line);">
+      <p class="ko" style="color:var(--ink);">제주 흑돼지 <em style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--red);font-weight:400;margin-left:8px;">je-ju heuk-dwae-ji</em></p>
+      <p class="zh" style="color:var(--ink-soft);"><b>濟州黑豬肉</b>．韓國高級版，肉色偏紅、油花細、嚼勁強</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:32px 0 14px;color:var(--ink);">吃烤肉的正確打開方式</h3>
+  <div class="tips-grid">
+    <div class="tip-box">
+      <h3>包飯 쌈 的藝術</h3>
+      <ul>
+        <li>生菜（或芝麻葉）攤平放手掌</li>
+        <li>夾一塊剛烤好的肉</li>
+        <li>沾一點 쌈장（辣豆瓣醬）</li>
+        <li>加大蒜片、泡菜、辣椒（可選）</li>
+        <li>包起來<b>一口吃完</b>，分兩口是失敬的</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>點菜禮節</h3>
+      <ul>
+        <li>肉類通常 <b>2 人份起點</b>（1 人份店家不給烤）</li>
+        <li>小菜 반찬 都是<b>免費續加</b>，可以大方要</li>
+        <li>最後一定要點 <b>炒飯 볶음밥</b>（用烤盤餘油炒，超香）</li>
+        <li>或加點 <b>大醬湯 된장찌개</b>、<b>冷麵 냉면</b>收尾</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>帶小孩注意</h3>
+      <ul>
+        <li>烤盤溫度極高，小孩座位盡量遠離</li>
+        <li>不吃辣的：跟店員說「안 매운 거（不辣的）」</li>
+        <li>多數店有兒童椅、小碗筷</li>
+        <li>小朋友可以吃白飯、蛋蒸、蒸蛋、生菜包肉</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>預算感</h3>
+      <ul>
+        <li>一般豬肉烤肉：人均 ₩20,000–30,000</li>
+        <li>黑豬肉升級版：人均 ₩35,000–50,000</li>
+        <li>韓牛（非豬）：人均 ₩60,000+</li>
+        <li>可刷卡、信用卡普遍接受</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHRASES ================= -->
+<section class="ref dark" id="phrases">
+  <div class="ref-head">
+    <p class="ref-kicker">Korean Survival Kit · 韓語速成</p>
+    <h2 style="color:var(--paper);">十句最實用的韓語</h2>
+  </div>
+  <div class="phrases">
+    <div class="phrase">
+      <p class="ko">안녕하세요</p>
+      <p class="romanize">annyeong-haseyo</p>
+      <p class="zh">你好 · 進店/打招呼萬用</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">감사합니다</p>
+      <p class="romanize">gamsa-hamnida</p>
+      <p class="zh">謝謝</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">얼마예요?</p>
+      <p class="romanize">eolma-yeyo?</p>
+      <p class="zh">多少錢？</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">이거 주세요</p>
+      <p class="romanize">igeo ju-seyo</p>
+      <p class="zh">請給我這個（指著菜單最好用）</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">안 매운 거 주세요</p>
+      <p class="romanize">an maeun geo ju-seyo</p>
+      <p class="zh">請給我不辣的（帶小孩必備）</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">화장실 어디예요?</p>
+      <p class="romanize">hwajangsil eodi-yeyo?</p>
+      <p class="zh">廁所在哪裡？</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">계산해 주세요</p>
+      <p class="romanize">gyesan-hae ju-seyo</p>
+      <p class="zh">請幫我結帳</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">맛있어요</p>
+      <p class="romanize">masisseo-yo</p>
+      <p class="zh">好吃 · 稱讚店家</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">도와주세요</p>
+      <p class="romanize">dowa-ju-seyo</p>
+      <p class="zh">請幫幫我（迷路/緊急時）</p>
+    </div>
+    <div class="phrase">
+      <p class="ko">천천히 말해 주세요</p>
+      <p class="romanize">cheoncheonhi malhae ju-seyo</p>
+      <p class="zh">請說慢一點</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRANSPORT ================= -->
+<section class="ref" id="transport">
+  <div class="ref-head">
+    <p class="ref-kicker">Taxi Travel · 計程車攻略</p>
+    <h2>全程計程車 · 費用速查</h2>
+  </div>
+
+  <div style="margin-bottom:28px;padding:16px 18px;background:rgba(159,51,41,0.06);border:1px dashed var(--red);border-radius:3px;">
+    <p style="margin:0 0 8px;font-family:'Fraunces',serif;font-style:italic;color:var(--red);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">5-Person Heads Up · 五人行須知</p>
+    <p style="margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.65;">一般計程車只能坐 <b>4 位乘客</b>，你們 5 人要用 <b>大型計程車 대형택시</b>（可坐 6–9 人），或分兩台一般計程車。Kakao T 叫車時選「대형」即可。機場來回行李多，<b>直接預訂包車 Minivan</b> 最省心。</p>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:0 0 14px;color:var(--ink);">這趟會用到的車資估算</h3>
+  <div class="transport">
+    <div class="transport-card">
+      <h3>仁川機場 ICN ↔ 飯店</h3>
+      <p class="route">約 55 公里 · 55–70 分鐘</p>
+      <p class="meta">
+        · 包車／Minivan：NT$1,600–2,200／車　<b>(5 人最推薦)</b><br>
+        · 國際計程車：₩80,000–90,000 固定價<br>
+        · 一般計程車：₩70,000–85,000　<b>(限 4 人)</b><br>
+        · 模範計程車黑色：₩100,000+
+      </p>
+    </div>
+    <div class="transport-card">
+      <h3>金浦機場 GMP ↔ 飯店</h3>
+      <p class="route">約 15 公里 · 25–30 分鐘</p>
+      <p class="meta">
+        · 包車：NT$800–1,200／車<br>
+        · 一般計程車：₩20,000–28,000
+      </p>
+    </div>
+    <div class="transport-card">
+      <h3>飯店 → 景福宮／三清洞</h3>
+      <p class="route">約 2 公里 · 10–15 分鐘</p>
+      <p class="meta">· 一般計程車：₩6,000–8,000</p>
+    </div>
+    <div class="transport-card">
+      <h3>景福宮 → 廣藏市場</h3>
+      <p class="route">約 4 公里 · 15 分鐘</p>
+      <p class="meta">· 一般計程車：₩8,000–10,000</p>
+    </div>
+    <div class="transport-card">
+      <h3>飯店 ↔ 聖水洞</h3>
+      <p class="route">約 7 公里 · 20–30 分鐘</p>
+      <p class="meta">· 一般計程車：₩12,000–18,000<br>· 大型計程車：₩18,000–25,000</p>
+    </div>
+    <div class="transport-card">
+      <h3>飯店 → 廣藏市場／東大門</h3>
+      <p class="route">約 3 公里 · 10–15 分鐘</p>
+      <p class="meta">· 一般計程車：₩7,000–9,000</p>
+    </div>
+    <div class="transport-card">
+      <h3>走路就到（不用叫車）</h3>
+      <p class="route">明洞 10 分 · 樂天百貨／免稅店 5 分 · 南大門 12 分 · 清溪川 5 分</p>
+      <p class="meta">· 飯店周邊散步可達</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:32px 0 14px;color:var(--ink);">叫車 App：Kakao T & Uber</h3>
+  <div class="transport">
+    <div class="transport-card">
+      <h3>Kakao T <em>韓國第一首選</em></h3>
+      <p class="route">最大叫車平台，車最多最好叫。免綁韓國手機、免綁信用卡，支援<b>現場付款</b>（現金或刷台灣信用卡都可）。</p>
+      <p class="meta">
+        · 介面有英文版，中文搜地址建議改輸入韓文<br>
+        · 叫車選「일반호출 一般呼叫」可現場付<br>
+        · 5 人請選「대형 大型計程車」<br>
+        · 出發前先下載並完成手機號驗證
+      </p>
+    </div>
+    <div class="transport-card">
+      <h3>Uber <em>備援選項</em></h3>
+      <p class="route">介面有<b>中文</b>，對外國人最友善。首爾車輛較少、有時等較久，但繞路風險低。</p>
+      <p class="meta">
+        · 不用重新註冊，台灣帳號直接能用<br>
+        · 有時會比 Kakao 稍貴<br>
+        · Kakao 叫不到車時的好備案
+      </p>
+    </div>
+    <div class="transport-card">
+      <h3>International Taxi <em>機場專用</em></h3>
+      <p class="route">政府立案、司機會說英文／中文／日文，仁川機場到市區<b>固定價</b>不跳錶。行李和座位寬敞，適合家族。</p>
+      <p class="meta">
+        · 官網 intltaxi.co.kr 可預約<br>
+        · 仁川→飯店 ₩80,000–90,000（5 人可坐 MPV 車型）<br>
+        · 語言通、不擔心繞路
+      </p>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:32px 0 14px;color:var(--ink);">計程車搭乘小知識</h3>
+  <div class="tips-grid">
+    <div class="tip-box">
+      <h3>起跳費與加成</h3>
+      <ul>
+        <li>一般計程車起跳 ₩4,800（2km 內）</li>
+        <li>之後每 131 公尺加 ₩100</li>
+        <li>深夜 22:00–04:00 加成 20%（23:00–02:00 加 40%）</li>
+        <li>模範／大型計程車起跳 ₩6,500+，跳更快</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>避免踩雷</h3>
+      <ul>
+        <li>車牌韓文字母是「아·바·사·자」才是營業車</li>
+        <li>上車前用 Kakao／Naver Map 先查預估費用</li>
+        <li>下車索取收據「영수증 주세요」</li>
+        <li>刷卡付款（有爭議好追查）</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>付款方式</h3>
+      <ul>
+        <li>絕大多數都能刷 Visa／Master 信用卡</li>
+        <li>T-money 交通卡也能嗶付（出發前買一張）</li>
+        <li>小費文化：不用給小費</li>
+        <li>備少量現金應急（₩10,000 左右）</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>和司機溝通</h3>
+      <ul>
+        <li>飯店地址截圖給司機看最快</li>
+        <li>或說英文地標：「Myeongdong」「City Hall」</li>
+        <li>Kakao T 直接輸入目的地不用說話</li>
+        <li>緊急撥 <b>1330</b>（24 小時中文旅遊熱線）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TIPS ================= -->
+<section class="ref" id="tips">
+  <div class="ref-head">
+    <p class="ref-kicker">Family Travel Notes · 家族貼士</p>
+    <h2>帶長輩和小孩的小訣竅</h2>
+  </div>
+
+  <div class="weather">
+    <div class="temp">15°–23°</div>
+    <div class="wdesc">
+      <strong>五月首爾天氣</strong>
+      白天溫暖、早晚涼。建議洋蔥式穿搭，帶薄外套／針織衫。偶有陣雨，帶把折傘。
+    </div>
+  </div>
+
+  <div class="tips-grid">
+    <div class="tip-box">
+      <h3>給媽媽的</h3>
+      <ul>
+        <li>行程每天下午留 1 小時回飯店休息</li>
+        <li>慢性病藥品帶齊，過海關前備妥處方</li>
+        <li>走路多的日子穿氣墊鞋</li>
+        <li>景福宮、聖水洞有不少石板路，注意腳下</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>給小朋友的</h3>
+      <ul>
+        <li>帶點零食、水瓶、濕紙巾備用</li>
+        <li>餐廳多有兒童椅，進門說「baby chair」</li>
+        <li>推車進計程車可摺疊放後車廂</li>
+        <li>聖水洞咖啡廳多有兒童友善空間</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>付款與網路</h3>
+      <ul>
+        <li>大部分地方都收信用卡（Visa／Master）</li>
+        <li>傳統市場、小吃攤要備現金（₩1,000/5,000 小鈔）</li>
+        <li>出發前買韓國 eSIM／Wi-Fi 機</li>
+        <li>飯店有免費 Wi-Fi</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>購物退稅</h3>
+      <ul>
+        <li>單筆 ₩15,000 以上可退稅，記得帶護照</li>
+        <li>樂天免稅店就在飯店旁，出境當天取貨</li>
+        <li>明洞、弘大多家 <b>Tax Free</b> 標示店家</li>
+        <li>機場預留 30–45 分鐘辦退稅</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>飯店位置優勢</h3>
+      <ul>
+        <li>市中心地段，叫車哪裡都快</li>
+        <li>步行可到：明洞、南大門、清溪川</li>
+        <li>公寓式套房 → 一家人可各自活動</li>
+        <li>多間浴室 → 早上不用排隊</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <h3>緊急資訊</h3>
+      <ul>
+        <li>報警 · 112</li>
+        <li>救護車／火警 · 119</li>
+        <li>觀光諮詢熱線（中文） · 1330</li>
+        <li>台北駐韓代表處 · +82-2-6329-6000</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="ornament">· · ·</div>
+  <p>Safe travels &amp; make good memories</p>
+  <p style="margin-top:4px;font-size:11px;color:var(--ink-muted);">首爾家族旅行 · Seoul 2026.05.15–05.18</p>
+</footer>
+
+</div>
+</body>
+</html>

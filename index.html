@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F2EADC">
+<title>家族旅行 · Family Trips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Noto+Serif+TC:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ===== Hero ===== */
+  .hero {
+    padding: 72px 24px 40px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  .hero .kicker {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero .kicker::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--red);
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: "Noto Serif TC", serif;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 1.12;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--red);
+    display: block;
+    font-size: 32px;
+    margin-top: 6px;
+    letter-spacing: 0;
+  }
+
+  .hero p.subtitle {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 16px 0 0;
+    max-width: 540px;
+  }
+
+  /* ===== Trips Grid ===== */
+  .trips-section {
+    padding: 48px 24px 80px;
+  }
+
+  .trips-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .trips-section-head h2 {
+    font-family: "Noto Serif TC", serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .count-badge {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .trips-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* ===== Trip Card ===== */
+  .trip-card {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .trip-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-color: var(--ink-soft);
+  }
+
+  .trip-card-image {
+    aspect-ratio: 16 / 10;
+    background: var(--paper-warm);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .trip-card-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(28,23,20,0.4));
+  }
+
+  .trip-card-image.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 36px;
+    background: var(--paper-warm);
+  }
+
+  .trip-card-image.placeholder::after { display: none; }
+
+  .trip-card-body {
+    padding: 18px 20px 20px;
+  }
+
+  .trip-card-dates {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+
+  .trip-card-title {
+    font-family: "Noto Serif TC", serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0 0 4px;
+    letter-spacing: -0.005em;
+  }
+
+  .trip-card-location {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .trip-card-location::before {
+    content: "◦ ";
+    color: var(--red);
+  }
+
+  .trip-card-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 5;
+  }
+
+  .trip-card:hover .trip-card-actions { opacity: 1; }
+  .edit-mode .trip-card-actions { opacity: 1; }
+
+  .trip-card-actions .btn-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.95);
+  }
+
+  /* ===== Add Card ===== */
+  .add-card {
+    background: transparent;
+    border: 2px dashed var(--line);
+    border-radius: 4px;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    color: var(--ink-muted);
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 15px;
+    transition: all 0.2s;
+  }
+
+  .add-card:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(159, 51, 41, 0.03);
+  }
+
+  .add-card .plus {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 6px;
+    font-weight: 300;
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 24px 60px;
+    text-align: center;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+
+  footer .ornament {
+    font-size: 18px;
+    color: var(--red);
+    margin-bottom: 10px;
+    letter-spacing: 0.5em;
+  }
+
+  /* Desktop */
+  @media (min-width: 680px) {
+    .hero { padding: 96px 56px 56px; }
+    .hero h1 { font-size: 60px; }
+    .hero h1 em { font-size: 42px; }
+    .trips-section { padding: 56px 56px 100px; }
+    .trips-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+
+  @media (min-width: 1024px) {
+    .trips-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <p class="kicker">Family Trips · 家族旅行</p>
+  <h1>我們的旅行<em>Our Journeys Together</em></h1>
+  <p class="subtitle">記錄每一趟和家人走過的路、吃過的飯、拍下的笑容。</p>
+</section>
+
+<section class="trips-section">
+  <div class="trips-section-head">
+    <h2>所有旅行</h2>
+    <span class="count-badge" id="countBadge"></span>
+  </div>
+
+  <div id="tripsContainer">
+    <div class="loader">載入中…</div>
+  </div>
+</section>
+
+<footer>
+  <div class="ornament">· · ·</div>
+  <p>Memories made together</p>
+</footer>
+
+</div>
+
+<!-- ===== New Trip Modal ===== -->
+<div class="modal-overlay" id="tripModal">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>×</button>
+    <h2 id="modalTitle">新增旅行</h2>
+    <p class="modal-sub">填寫基本資訊，之後可以再編輯</p>
+
+    <form id="tripForm">
+      <input type="hidden" id="tripId">
+
+      <div class="field">
+        <label class="field-label">旅行名稱</label>
+        <input type="text" class="input" id="fTitle" placeholder="例：首爾家族旅行" required>
+      </div>
+
+      <div class="field">
+        <label class="field-label">副標題（英文／slogan，選填）</label>
+        <input type="text" class="input" id="fSubtitle" placeholder="例：Seoul in Spring">
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="field">
+          <label class="field-label">出發日</label>
+          <input type="date" class="input" id="fStart" required>
+        </div>
+        <div class="field">
+          <label class="field-label">回程日</label>
+          <input type="date" class="input" id="fEnd" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">地點</label>
+        <input type="text" class="input" id="fLocation" placeholder="例：首爾, 韓國" required>
+      </div>
+
+      <div class="field">
+        <label class="field-label">同行家人（用逗號分隔）</label>
+        <input type="text" class="input" id="fFamily" placeholder="例：媽媽, 姊姊, 外甥女, 外甥">
+      </div>
+
+      <div class="field">
+        <label class="field-label">簡短描述（選填）</label>
+        <textarea class="textarea" id="fDescription" placeholder="這趟旅行的小簡介…"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" data-close-modal>取消</button>
+        <button type="submit" class="btn btn-red" id="submitBtn">建立旅行</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="module">
+import {
+  listTrips, createTrip, updateTrip, deleteTrip,
+  isEditMode, toggleEditMode, toast,
+} from './db.js';
+
+const editMode = isEditMode();
+if (editMode) document.body.classList.add('edit-mode');
+
+// ===== Render trips =====
+function fmtDateRange(start, end) {
+  const s = new Date(start);
+  const e = new Date(end);
+  const sameYear = s.getFullYear() === e.getFullYear();
+  const sameMonth = sameYear && s.getMonth() === e.getMonth();
+  const opts = { month: 'short', day: 'numeric' };
+  const sStr = s.toLocaleDateString('en-US', opts);
+  const eStr = sameMonth
+    ? e.getDate()
+    : e.toLocaleDateString('en-US', opts);
+  return `${sStr}—${eStr}, ${e.getFullYear()}`;
+}
+
+function tripCardHTML(trip) {
+  const dates = fmtDateRange(trip.start_date, trip.end_date);
+  const cover = trip.cover_url
+    ? `<div class="trip-card-image" style="background-image:url('${trip.cover_url}')"></div>`
+    : `<div class="trip-card-image placeholder">${trip.location ? trip.location.charAt(0) : '✦'}</div>`;
+
+  const editActions = editMode ? `
+    <div class="trip-card-actions">
+      <button class="btn-icon" data-edit="${trip.id}" title="編輯">✎</button>
+      <button class="btn-icon btn-danger" data-delete="${trip.id}" title="刪除">✕</button>
+    </div>
+  ` : '';
+
+  return `
+    <a class="trip-card" href="trip.html?id=${trip.id}${editMode ? '&edit' : ''}">
+      ${editActions}
+      ${cover}
+      <div class="trip-card-body">
+        <p class="trip-card-dates">${dates}</p>
+        <h3 class="trip-card-title">${escapeHtml(trip.title)}</h3>
+        <p class="trip-card-location">${escapeHtml(trip.location || '')}</p>
+      </div>
+    </a>
+  `;
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+async function renderTrips() {
+  const container = document.getElementById('tripsContainer');
+  const badge = document.getElementById('countBadge');
+
+  try {
+    const trips = await listTrips();
+    badge.textContent = trips.length === 0 ? '' : `${trips.length} 趟`;
+
+    if (trips.length === 0 && !editMode) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <h3>還沒有任何旅行</h3>
+          <p>網址加 <code>?edit</code> 進入編輯模式來新增第一趟旅行</p>
+          <a class="btn btn-outline" href="?edit">啟動編輯模式</a>
+        </div>
+      `;
+      return;
+    }
+
+    const cards = trips.map(tripCardHTML).join('');
+    const addCard = editMode
+      ? `<div class="add-card" id="addTripBtn">
+           <div class="plus">+</div>
+           <div>新增旅行</div>
+         </div>`
+      : '';
+
+    container.innerHTML = `<div class="trips-grid">${cards}${addCard}</div>`;
+
+    // Bind events
+    document.getElementById('addTripBtn')?.addEventListener('click', () => openModal());
+    document.querySelectorAll('[data-edit]').forEach(b => {
+      b.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = b.dataset.edit;
+        const trip = trips.find(t => t.id === id);
+        if (trip) openModal(trip);
+      });
+    });
+    document.querySelectorAll('[data-delete]').forEach(b => {
+      b.addEventListener('click', async e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = b.dataset.delete;
+        const trip = trips.find(t => t.id === id);
+        if (!confirm(`確定要刪除「${trip?.title}」嗎？所有照片和行程都會一併刪除。`)) return;
+        try {
+          await deleteTrip(id);
+          toast('已刪除');
+          renderTrips();
+        } catch (err) {
+          toast('刪除失敗：' + err.message, 'error');
+        }
+      });
+    });
+  } catch (err) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>載入失敗</h3>
+        <p>${escapeHtml(err.message)}</p>
+        <p style="font-size:12px;margin-top:12px;">請檢查 config.js 是否填好 Supabase URL 和 anon key</p>
+      </div>
+    `;
+  }
+}
+
+// ===== Modal =====
+const modal = document.getElementById('tripModal');
+const form = document.getElementById('tripForm');
+
+function openModal(trip = null) {
+  document.getElementById('modalTitle').textContent = trip ? '編輯旅行' : '新增旅行';
+  document.getElementById('submitBtn').textContent = trip ? '儲存變更' : '建立旅行';
+  document.getElementById('tripId').value = trip?.id || '';
+  document.getElementById('fTitle').value = trip?.title || '';
+  document.getElementById('fSubtitle').value = trip?.subtitle || '';
+  document.getElementById('fStart').value = trip?.start_date || '';
+  document.getElementById('fEnd').value = trip?.end_date || '';
+  document.getElementById('fLocation').value = trip?.location || '';
+  document.getElementById('fFamily').value = trip?.family ? trip.family.join(', ') : '';
+  document.getElementById('fDescription').value = trip?.description || '';
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+  form.reset();
+}
+
+document.querySelectorAll('[data-close-modal]').forEach(el => {
+  el.addEventListener('click', closeModal);
+});
+
+modal.addEventListener('click', e => {
+  if (e.target === modal) closeModal();
+});
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const id = document.getElementById('tripId').value;
+  const familyRaw = document.getElementById('fFamily').value.trim();
+  const payload = {
+    title: document.getElementById('fTitle').value.trim(),
+    subtitle: document.getElementById('fSubtitle').value.trim() || null,
+    start_date: document.getElementById('fStart').value,
+    end_date: document.getElementById('fEnd').value,
+    location: document.getElementById('fLocation').value.trim(),
+    family: familyRaw ? familyRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+    description: document.getElementById('fDescription').value.trim() || null,
+  };
+
+  try {
+    if (id) {
+      await updateTrip(id, payload);
+      toast('已儲存變更');
+    } else {
+      await createTrip(payload);
+      toast('已建立旅行');
+    }
+    closeModal();
+    renderTrips();
+  } catch (err) {
+    toast('儲存失敗：' + err.message, 'error');
+  }
+});
+
+// ===== Edit mode bar =====
+if (editMode) {
+  const bar = document.createElement('div');
+  bar.className = 'edit-bar';
+  bar.innerHTML = `
+    <span class="dot"></span>
+    <span>編輯模式</span>
+    <a href="${window.location.pathname}">退出</a>
+  `;
+  document.body.appendChild(bar);
+}
+
+renderTrips();
+</script>
+
+</body>
+</html>

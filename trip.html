@@ -653,7 +653,7 @@ import {
   listSections, createSection, updateSection, deleteSection,
   listBlocks, createBlock, updateBlock, deleteBlock,
   listPhotos, uploadPhoto, deletePhoto, setTripCover,
-  isEditMode, toast,
+  isEditMode, toggleEditMode, toast,
 } from './db.js';
 
 const editMode = isEditMode();
@@ -1134,17 +1134,15 @@ document.getElementById('photoViewer').addEventListener('click', e => {
   }
 });
 
-// Edit mode bar
-if (editMode) {
+// Edit mode bar (always visible — click toggles)
+{
   const bar = document.createElement('div');
-  bar.className = 'edit-bar';
-  const exitUrl = `${window.location.pathname}?id=${tripId}`;
-  bar.innerHTML = `
-    <span class="dot"></span>
-    <span>編輯模式</span>
-    <a href="${exitUrl}">退出</a>
-  `;
+  bar.className = 'edit-bar' + (editMode ? '' : ' edit-bar--enter');
+  bar.innerHTML = editMode
+    ? `<span class="dot"></span><span>編輯模式</span><button type="button" class="edit-bar-btn" id="editToggleBtn">退出</button>`
+    : `<button type="button" class="edit-bar-btn" id="editToggleBtn">✎ 進入編輯</button>`;
   document.body.appendChild(bar);
+  document.getElementById('editToggleBtn').addEventListener('click', toggleEditMode);
 }
 
 if (tripId) render();

@@ -43,6 +43,7 @@ create table if not exists blocks (
   time text,             -- 例：09:00、14:00—17:00
   title text not null,   -- 例：景福宮
   body text,             -- 描述內容
+  map_url text,          -- Google 地圖連結
   tags text[] default '{}', -- 標籤
   tip text,              -- 小提示
   order_index int default 0,

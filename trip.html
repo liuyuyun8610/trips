@@ -307,6 +307,25 @@
     margin-bottom: 2px;
   }
 
+  .block-map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 4px 0 10px;
+    padding: 5px 11px 5px 9px;
+    font-size: 12px;
+    color: var(--ink);
+    background: var(--paper-warm);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .block-map-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
   .block-actions {
     position: absolute;
     top: 8px;
@@ -813,6 +832,10 @@
         <textarea class="textarea" id="bBody" placeholder="行程描述、地點、注意事項…" rows="4"></textarea>
       </div>
       <div class="field">
+        <label class="field-label">Google 地圖連結（選填）</label>
+        <input type="url" class="input" id="bMapUrl" placeholder="貼上 Google Maps 分享連結，前端會顯示一顆 📍 按鈕">
+      </div>
+      <div class="field">
         <label class="field-label">標籤（逗號分隔，選填）</label>
         <input type="text" class="input" id="bTags" placeholder="例：必看儀式, 免費表演">
       </div>
@@ -1207,6 +1230,7 @@ function renderBlock(block, sectionId) {
         ` : ''}
         <h3>${escapeHtml(block.title)}</h3>
         ${block.body ? `<p>${formatRichText(block.body)}</p>` : ''}
+        ${block.map_url ? `<a class="block-map-btn" href="${escapeHtml(block.map_url)}" target="_blank" rel="noopener">📍 在 Google 地圖開啟</a>` : ''}
         ${tags}
         ${tip}
       </div>
@@ -1449,6 +1473,7 @@ function openBlockModal(block = null, sectionId) {
   document.getElementById('bTime').value = block?.time || '';
   document.getElementById('bTitle').value = block?.title || '';
   document.getElementById('bBody').value = block?.body || '';
+  document.getElementById('bMapUrl').value = block?.map_url || '';
   document.getElementById('bTags').value = block?.tags ? block.tags.join(', ') : '';
   document.getElementById('bTip').value = block?.tip || '';
   document.getElementById('blockModal').classList.add('show');
@@ -1463,6 +1488,7 @@ document.getElementById('blockForm').addEventListener('submit', async e => {
     time: document.getElementById('bTime').value.trim() || null,
     title: document.getElementById('bTitle').value.trim(),
     body: document.getElementById('bBody').value.trim() || null,
+    map_url: document.getElementById('bMapUrl').value.trim() || null,
     tags: tags ? tags.split(',').map(s => s.trim()).filter(Boolean) : [],
     tip: document.getElementById('bTip').value.trim() || null,
   };
